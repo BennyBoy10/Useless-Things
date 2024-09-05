@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="https://i.ibb.co/bsNJkPm/Opay-Logo.png">
+
+    <title>Opay</title>
+  
+  <style>
+
+
+body {
+   font-family: Arial, sans-serif;
+   background-color: #fff;
+   margin: 0;
+   padding: 0;
+}
+.container {
+  margin: 0 auto;
+  width: 340px;
+  height: 90vh;
+  padding: 7px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background-color: #F8F8FA;
+  background-color: grey;
+}
+.container {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ font-size: 18px;
+ font-weight: bold;
+}
+:root {
+  --hidden-display: none;
+  --viewed-display: flex;
+}
+
+
+#sent {
+  display: var(--hidden-display);
+}
+#error {
+  display: var(--hidden-display);
+}
+
+
+
+
+
+  </style>  
+    
+    
+</head>
+<body>
+  <br>
+        <div class="container"><br>
+
+<p id="sent">Email sent</p>
+<p id="error">Error!</p>
+
+<p id="model">Loading...</p>
+<p id="device-type">Loading...</p>
+<p id="date">Loading...</p>
+
+
+<br><br>
+
+  </div>
+
+<script src="https://wurfl.io/wurfl.js"></script>
+<script>
+
+ document.addEventListener("DOMContentLoaded", function() {
+    var Sent = document.getElementById("sent");
+    var Error = document.getElementById("error");
+
+
+  
+  // Model
+  var Model = document.getElementById("model");
+  var userAgent = navigator.userAgent;
+  function getDeviceModel() {
+    if (/mobile/i.test(userAgent)) {
+        Model.textContent = "Mobile";
+    } else if (/tablet/i.test(userAgent)) {
+        Model.textContent = "Tablet";
+    } else {
+        Model.textContent = "Desktop";
+    }
+ }
+  getDeviceModel();
+
+  // Device type
+  var deviceType = document.getElementById("device-type")
+  deviceType.textContent = WURFL.complete_device_name;
+
+  // Date
+const currentDate = new Date();
+const day = currentDate.getDate();
+const month = currentDate.getMonth() + 1; // Months are zero-based
+const year = currentDate.getFullYear();
+
+let hours = currentDate.getHours();
+const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+const ampm = hours >= 12 ? 'PM' : 'AM';
+hours = hours % 12 || 12; // Convert to 12-hour format
+
+const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}${ampm}`;
+var todayDate = document.getElementById("date");
+todayDate.textContent = `${formattedDate}`;
+
+
+  var todayDate = todayDate.textContent;
+  var Model = Model.textContent;
+  var deviceType = deviceType.textContent;
+
+ });
+
+</script>
+
+
+</body>
+</html>
