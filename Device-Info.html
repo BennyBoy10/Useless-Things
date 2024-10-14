@@ -12,7 +12,7 @@
 
   <script>
     // Declare global variables
-    var deviceType, browser, country, ip;
+    var deviceType, browser, country = "Unknown Country", ip = "Unknown IP";
 
     // Function to gather the necessary info
     function getDeviceInfo() {
@@ -30,28 +30,27 @@
       })();
     }
 
-    // Function to get country info and display everything
-    function getCountryInfo() {
+    // Function to get IP and country info
+    function getIpAndCountryInfo() {
       // First, gather device info
       getDeviceInfo();
 
-      // Attempt to fetch country info using IP
+      // Fetch IP and country from ipapi.co (securely)
       fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
-          country = data.country_name || "Unknown Country";
           ip = data.ip || "Unknown IP";
+          country = data.country_name || "Unknown Country";
 
           // Print the info on the page
           document.getElementById("info").innerText = 
             `Device Type: ${deviceType}\n` +
             `Browser: ${browser}\n` +
             `Country: ${country}\n` +
-            `IP Address: ${ip}`;
+            `IP Address: ${ip}\n`;
         })
         .catch(error => {
-          // In case fetching fails
-          console.error('Error fetching country info:', error);
+          console.error('Error fetching IP or country:', error);
           document.getElementById("info").innerText = 
             `Device Type: ${deviceType}\n` +
             `Browser: ${browser}\n` +
@@ -61,7 +60,7 @@
     }
 
     // Run on page load
-    window.onload = getCountryInfo;
+    window.onload = getIpAndCountryInfo;
   </script>
 </body>
 </html>
